@@ -1,0 +1,28 @@
+if [ $# -eq 0 ] 
+then 
+	echo"Usage: phone searchfor [...searchfor]
+	(You didn't tell me what you want to search for.)"
+else
+
+	first=1
+	for arg in $*
+	do
+		if [ $first -eq 1 ] 
+		then
+				egrep $arg mydata > file1
+				first=0
+		
+		else
+		
+			egrep $arg file1 > tempfile
+			cat tempfile>file1
+
+
+		fi
+
+	done
+
+	cat file1 | awk -f display.awk
+
+
+fi

@@ -1,0 +1,19 @@
+if [ $# -eq 0 ]		#입력이 주어지지 않았을때
+then 
+	echo "Usage : phone searchfor [...searchfor]
+(You didn't tell me what you want to search for.)"
+
+else 
+  string="" #비어있는string
+  for arg in $* #입력이 단어별로 $*에저장
+  do
+    if [ -z "$string" ] #string이 비어있을때
+    then
+      string="$arg" 
+    else  #string들을 구분해줄 pipeline
+      string="$string|$arg" 
+    fi
+  done
+	 
+  egrep "$string" mydata | awk -f display.awk 
+fi
